@@ -14,7 +14,7 @@
     -rw-r--r--   1 user group 106M Jan 13 12:12 foo
     drwx------+ 47 user group 1.5K Jan 12 18:08 ..
    ```
-    ### Solution:
+    #### **Solution:**
     
     ```bash
     ls -a -h -t -color
@@ -26,13 +26,15 @@
     - t is used to sort by modification time, newest first
     - color is used to colorize the output
 2. Write bash functions `marco` and `polo` that do the following. Whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
-   ### Solution:
-   Prereqs: Read up on bash functions, editing files in vim and `source` command
+   #### **Solution:**
+   Prerequisites: Read up on bash functions, editing files in vim and `source` command
    1. Create a bash script named `marco.sh` and create a bash function named `marco` inside it, which when called stores the present working directory in a variable.
 
         ```bash
         vim marco.sh
-        Press I to enter insert mode
+        ```
+        (Press `I` to enter insert mode)
+        ```bash
         #!/usr/bin/env bash
         function marco()
         {
@@ -59,7 +61,7 @@
         ```
         (Press `Esc` to exit insert mode, then enter `:wq` to save and exit.)
 
-   3. Edit permissions of `marco.sh` and `polo.sh` and then load them into the shell using `source`
+   1. Edit permissions of `marco.sh` and `polo.sh` and then load them into the shell using `source`
         ```bash
         chmod a+rx marco.sh polo.sh
         source marco.sh
@@ -78,7 +80,7 @@
 
     echo "Everything went according to plan"
    ```
-   ### Solution:
+   #### **Solution:**
    1. Create a bash script named `test.sh` and save the script given in the question inside it.
         ```bash
         vim test.sh
@@ -98,7 +100,7 @@
 
         (Press `Esc` to exit insert mode, then enter `:wq` to save and exit.)
 
-    2. Create another bash script named `errcnt.sh`. Inside it, create a variable named `cnt` to store
+    1. Create another bash script named `errcnt.sh`. Inside it, create a variable named `cnt` to store
     count and two text files to store output and error of each run. Increment `cnt` by `1`. Run
     `test.sh` once and store the output and error inside their respective files. Then create a `while` loop that runs till the exit code of the last run of `test.sh` is equal to `0` and increments `cnt` by `1` and updates `output.txt` and `error.txt` in each iteration. This effectively simulates a `do while` loop. In the end, print the value of `cnt` and contents of `output.txt` and `error.txt`.
 
@@ -132,7 +134,7 @@
 
     If you’re on macOS, note that the default BSD `find` is different from the one included in GNU coreutils. You can use `-print0` on `find` and the `-0` flag on `xargs`. As a macOS user, you should be aware that command-line utilities shipped with macOS may differ from the GNU counterparts; you can install the GNU versions if you like by using brew.
 
-    ### Solution:
+    #### **Solution:**
     ```bash
     find . -name '*.html' -print | zip allhtml.zip -@
     ```
@@ -145,7 +147,7 @@
     * `-@ flag` is used to take list of files from standard input (here, redirected from `find` using `|`) and read one file name per line to ensure file names with spaces are read properly
 
 5. Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
-    ### Solution:
+    #### **Solution:**
     ```bash
     find -printf "%TY-%Tm-%Td %TT %p\n" | sort -n
     ```
