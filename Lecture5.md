@@ -1,4 +1,4 @@
-# Week 5: Command-line Environment
+# Lecture 5: Command-line Environment
 
 ## Job Control
 
@@ -282,16 +282,16 @@ Install a Linux virtual machine (or use an already existing one) for this exerci
 ### **Solution:**
 I had Ubuntu 20.04.2 on my local machine and Ubuntu Server 20.04.2 LTS on my VM. Follow everthing in the tutorial before "Starting and Stopping VirtualBox in Headless Mode". Select "Option 2" while downloading Ubuntu Server to get the iso file. I had to [disable EFI Secure Boot](https://wiki.ubuntu.com/UEFI/SecureBoot/DKMS) in order to get VirtualBox to work. I also had to install `net-tools`(`sudo apt install net-tools`) on my VM for `ifconfig`. This is where I found the IP address assigned to your main network adapter:
 
-![img1](Week-5-Screenshots/img1.jpg)
+![img1](Lecture-5-Screenshots/img1.jpg)
 
 1.  Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent`, more info [here](https://www.ssh.com/ssh/agent).
     #### **Solution:**
     Execute the command on your local machine. `ssh-agent` is not neccessary.
 
-    ![img2](Week-5-Screenshots/img2.png)
+    ![img2](Lecture-5-Screenshots/img2.png)
 
 2.  Edit `.ssh/config` to have an entry as follows
-    ```bash[img2](Week-5-Screenshots/img2.png)
+    ```bash[img2](Lecture-5-Screenshots/img2.png)
     Host vm
         User username_goes_here
         HostName ip_goes_here
@@ -303,22 +303,22 @@ I had Ubuntu 20.04.2 on my local machine and Ubuntu Server 20.04.2 LTS on my VM.
     #### **Solution:**
     Start your VM and login(if you haven't already). The first two tasks have to be done on your local machine. I had to use `python3 -m http.server 8888` to start a webserver in my VM. To access the VM webserver, do `ssh vm` and open `http://localhost:9999` in your browser. It should look like this:
     
-    ![img3](Week-5-Screenshots/img3.png)
+    ![img3](Lecture-5-Screenshots/img3.png)
 
     You can download files and check if it matches the VM.
 
-    ![img4](Week-5-Screenshots/img4.png)
+    ![img4](Lecture-5-Screenshots/img4.png)
 
 3.  Edit your SSH server config by doing `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
     #### **Solution:**
     The file is present on your VM, but you can edit it from your local machine as well since you can access it. Set `Password Authentication` and `PermitRootLogin` to `no`. `PermitRootLogin` was commented on my file, so I uncommented it. 
-    ![img5](Week-5-Screenshots/img5.png)
-    ![img6](Week-5-Screenshots/img6.png)
+    ![img5](Lecture-5-Screenshots/img5.png)
+    ![img6](Lecture-5-Screenshots/img6.png)
     
     `exit` from the server on your local machine and do `sudo service sshd restart` on your VM to restart the `ssh` service. Your server will now only accept key based login and the root user can not login with password. Now ssh login is only allowed with SSH keys and not passwords, adding a layer of extra security.
 
     Trying to access the server from your local machine(`ssh vm`) should give an output similar to this:
-    ![img7](Week-5-Screenshots/img7.png)
+    ![img7](Lecture-5-Screenshots/img7.png)
 
     `http://localhost:9999` should not load either.
 
